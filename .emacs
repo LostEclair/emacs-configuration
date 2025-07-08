@@ -16,7 +16,6 @@
 
   (setq-default indent-tabs-mode nil)
 
-  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
   (load-theme 'modus-vivendi t)
 
   (tool-bar-mode -1)
@@ -25,16 +24,9 @@
 
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
   (add-to-list 'default-frame-alist '(internal-border-width . 4))
-  ;; (add-to-list 'default-frame-alist '(alpha-background . 85))
-  ;; (add-to-list 'default-frame-alist '(font . "Terminus 12"))
-  ;; (face-remap-add-relative 'fixed-pitch :family "Terminus")
 
   :hook ((after-init . global-prettify-symbols-mode)
          (after-init . fido-vertical-mode)))
-
-(use-package eglot
-  :hook ((nim-mode . eglot-ensure)
-         (c-mode-common . eglot-ensure)))
 
 (use-package company
   :ensure t
@@ -52,9 +44,10 @@
   :hook (after-init . which-key-mode))
 
 (use-package cc-mode
-  :hook (c-mode-common . (lambda ()
-                           (c-set-style "k&r")
-                           (setq c-basic-offset 2))))
+  :hook ((c-mode-common . (lambda ()
+                            (c-set-style "k&r")
+                            (setq c-basic-offset 2)))
+         (c-mode-common . eglot-ensure)))
 
 (use-package org
   :config
